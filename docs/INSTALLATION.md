@@ -4,7 +4,7 @@ Ce guide décrit pas-à-pas la création d'un projet WinDev à partir des source
 
 ## Prérequis
 
-- WinDev 27 (ou supérieur) installé sur Windows 10/11.
+- WinDev 23 (ou supérieur) installé sur Windows 7 SP1 / 10 / 11.
 - Droits d'écriture sur le poste.
 - Environ 200 Mo d'espace disque pour le projet + données.
 

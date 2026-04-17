@@ -18,7 +18,7 @@ Application complète de gestion de restaurant développée en **WLangage** pour
 
 ## Stack technique
 
-- **IDE** : WinDev 27+ (rétrocompatible WinDev 25+ moyennant quelques ajustements mineurs sur les fonctions récentes).
+- **IDE** : WinDev 23+ (testé en tant que code cible WinDev 23 ; aucune utilisation de `PROCEDURE INTERNE` ni de tableaux littéraux multidim introduits en versions plus récentes).
 - **Langage** : WLangage.
 - **BDD** : HFSQL Classic (mono-poste) ou Client/Serveur (multi-poste).
 - **Cible** : Windows 10/11.
