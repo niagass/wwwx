@@ -1,0 +1,127 @@
+================================================================================
+  Analyse HFSQL — RestoManager
+  À reproduire dans l'IDE WinDev (analyse).
+  Types : ENT=Entier, ENTA=Entier auto, CH=Chaîne, TXT=Texte, BOO=Booléen,
+          DTH=DateHeure, MON=Monétaire, RL=Réel, MEMB=Mémo binaire
+================================================================================
+
+FICHIER Utilisateurs
+  IDUtilisateur     ENTA   clé PK
+  Login             CH(32) clé unique
+  MotDePasseHash    CH(64)
+  SelMDP            CH(32)
+  Nom               CH(64)
+  Prenom            CH(64)
+  Role              CH(16)
+  Actif             BOO
+  DateCreation      DTH
+
+FICHIER Categories
+  IDCategorie       ENTA   clé PK
+  Nom               CH(32) clé unique
+  OrdreAffichage    ENT
+  CouleurRGB        ENT
+
+FICHIER Plats
+  IDPlat            ENTA   clé PK
+  IDCategorie       ENT    (lien N,1 -> Categories)
+  Nom               CH(64) clé avec doublons
+  Description       TXT
+  Prix              MON
+  Actif             BOO
+  TempsPreparation  ENT
+  Image             MEMB
+
+FICHIER Ingredients
+  IDIngredient      ENTA   clé PK
+  Nom               CH(64) clé unique
+  Unite             CH(8)
+  StockActuel       RL
+  StockMin          RL
+  PrixAchatUnitaire MON
+
+FICHIER PlatsIngredients
+  IDPlat            ENT    clé PK composée (avec IDIngredient), lien -> Plats
+  IDIngredient      ENT    clé PK composée, lien -> Ingredients
+  Quantite          RL
+
+FICHIER Tables
+  IDTable           ENTA   clé PK
+  Numero            ENT    clé unique
+  Capacite          ENT
+  Statut            CH(16)
+  Zone              CH(32)
+
+FICHIER Clients
+  IDClient          ENTA   clé PK
+  Nom               CH(64) clé avec doublons
+  Prenom            CH(64)
+  Telephone         CH(20)
+  Email             CH(128)
+  Notes             TXT
+
+FICHIER Reservations
+  IDReservation     ENTA   clé PK
+  IDClient          ENT    lien -> Clients
+  IDTable           ENT    lien -> Tables
+  DateHeure         DTH    clé
+  NbPersonnes       ENT
+  Statut            CH(16)
+  Notes             TXT
+
+FICHIER Commandes
+  IDCommande        ENTA   clé PK
+  IDTable           ENT    lien -> Tables
+  IDServeur         ENT    lien -> Utilisateurs
+  DateHeureOuverture DTH   clé avec doublons
+  DateHeureCloture  DTH
+  Statut            CH(16) clé avec doublons
+  Notes             TXT
+  TotalHT           MON
+  TotalTVA          MON
+  TotalTTC          MON
+
+FICHIER LignesCommande
+  IDLigne           ENTA   clé PK
+  IDCommande        ENT    clé avec doublons, lien -> Commandes (INTEGRITE: cascade)
+  IDPlat            ENT    lien -> Plats
+  Quantite          ENT
+  PrixUnitaire      MON
+  Notes             CH(255)
+  Statut            CH(16)
+
+FICHIER Factures
+  IDFacture         ENTA   clé PK
+  IDCommande        ENT    clé unique, lien -> Commandes
+  NumeroFacture     CH(20) clé unique
+  DateHeure         DTH    clé avec doublons
+  IDCaissier        ENT    lien -> Utilisateurs
+  TotalHT           MON
+  TotalTVA          MON
+  TotalTTC          MON
+  ModePaiement      CH(16)
+  MontantRecu       MON
+  Rendu             MON
+
+FICHIER MouvementsStock
+  IDMouvement       ENTA   clé PK
+  IDIngredient      ENT    lien -> Ingredients
+  TypeMouvement     CH(16)
+  Quantite          RL
+  DateHeure         DTH    clé avec doublons
+  IDUtilisateur     ENT    lien -> Utilisateurs
+  Motif             CH(255)
+  Reference         CH(32)
+
+FICHIER JournalAudit
+  IDAudit           ENTA   clé PK
+  DateHeure         DTH    clé avec doublons
+  IDUtilisateur     ENT    lien -> Utilisateurs
+  Action            CH(64) clé avec doublons
+  Detail            TXT
+  IPPoste           CH(45)
+
+================================================================================
+  Intégrité référentielle : CASCADE sur LignesCommande ↔ Commandes.
+  Intégrité référentielle : RESTRICT partout ailleurs.
+================================================================================

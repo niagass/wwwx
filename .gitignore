@@ -1,0 +1,25 @@
+# WinDev — fichiers générés / binaires volatils
+*.bak
+*.sav
+*.err
+*.wdl
+*.wdy
+*.exe
+EXE/
+bin/
+obj/
+# Fichiers temporaires WinDev
+*.wpp~
+*.wdt
+*.wdtmp
+*~
+# Fichiers de données HFSQL locaux (à ne pas versionner)
+*.fic
+*.ndx
+*.mmo
+*.hf
+# Environnement
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
